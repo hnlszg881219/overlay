@@ -2,6 +2,7 @@ package com.svw.overlay.basic;
 
 import java.util.Collection;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.svw.overlay.basic.items.BasicCarplant;
 
 @RequestMapping("/carplant")
+@Controller
 public class CarplantController {
 	
-	@RequestMapping(value="/carplant",method = RequestMethod.POST)
+	@RequestMapping(value="/carplant",method = RequestMethod.PUT)
 	@ResponseBody
 	/**
 	 * 创建工厂基本信息
@@ -41,7 +43,7 @@ public class CarplantController {
 		return 0;
 	}
 	
-	@RequestMapping(value="/carplant/${id}",method = RequestMethod.PUT)
+	@RequestMapping(value="/carplant/{id}",method = RequestMethod.POST)
 	@ResponseBody
 	/**
 	 * 更新工厂基本信息
@@ -73,7 +75,7 @@ public class CarplantController {
 		
 	}
 	
-	@RequestMapping(value="/carplant/${id}",method = RequestMethod.GET)
+	@RequestMapping(value="/carplant/{id}",method = RequestMethod.GET)
 	@ResponseBody
 	/**
 	 * 通过id查询工厂信息
@@ -84,11 +86,13 @@ public class CarplantController {
 	 *       工厂信息
 	 */
     public BasicCarplant queryBasicCarplantById(@PathVariable("id") String id){
-		return null;
+		BasicCarplant bc = new BasicCarplant();
+		bc.setCode("afsas");
+		return bc;
     	
     }
 	
-	@RequestMapping(value="/carplant/${id}",method = RequestMethod.DELETE)
+	@RequestMapping(value="/carplant/{id}",method = RequestMethod.DELETE)
 	@ResponseBody
 	/**
 	 * 通过id删除工厂信息

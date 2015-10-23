@@ -10,6 +10,9 @@ public class BasicCarplant {
 	//名称
 	private String name;
 	
+	//地址
+	private String address;
+	
 	//经度
 	private float longtitude;
 	
@@ -46,6 +49,14 @@ public class BasicCarplant {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public float getLongtitude() {
