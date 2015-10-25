@@ -3,6 +3,7 @@ package com.svw.overlay.basic.dao.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -11,8 +12,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.svw.overlay.basic.dao.BasicCarplantDao;
-import com.svw.overlay.basic.items.BasicCarplant;
-import com.svw.overlay.basic.mappers.BasicCarplantRowMapper;
 
 @Repository("basicCarplantDao")
 public class BasicCarplantDaoImpl implements BasicCarplantDao {
@@ -36,7 +35,7 @@ public class BasicCarplantDaoImpl implements BasicCarplantDao {
 	}
 
 	@Override
-	public long updateBasicCarplant(String id, String code, String name,
+	public long updateBasicCarplant(long id, String code, String name,
 			String address, long longtitude, long latitude, String remarks) {
 		String sql = "update basic_carplant set code=?, name=?, address=?,"
 				+ "longtitude=?, latitude=?, remarks=?"
@@ -46,12 +45,16 @@ public class BasicCarplantDaoImpl implements BasicCarplantDao {
 	}
 
 	@Override
-	public BasicCarplant queryBasicCarplantById(long id) {
+	public Map<String,Object> queryBasicCarplantById(long id) {
 		String sql = "select id, code, name, address, "
 				+ "longtitude, latitude, remarks"
 				+ " from basic_carplant where id=?";
-		return jdbcTemplate.queryForObject(sql, new Object[]{id},
-				new BasicCarplantRowMapper());
+		List<Map<String,Object>> list = jdbcTemplate.queryForList(sql, new Object[]{id});
+		if(list.size()==1){
+			return list.get(0);
+		}else{
+			return null;
+		}
 	}
 
 	@Override
@@ -61,7 +64,7 @@ public class BasicCarplantDaoImpl implements BasicCarplantDao {
 	}
 
 	@Override
-	public Collection<BasicCarplant> queryBasicCarplantList(String code,
+	public Collection<Map<String,Object>> queryBasicCarplantList(String code,
 			String name) {
 		String sql = "select id, code, name, address, "
 				+ "longtitude, latitude, remarks"
@@ -77,8 +80,7 @@ public class BasicCarplantDaoImpl implements BasicCarplantDao {
         	list.add(name);
 		}
         
-		return jdbcTemplate.query(sql, list.toArray(),
-				new BasicCarplantRowMapper());
+		return jdbcTemplate.queryForList(sql, list.toArray());
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.svw.overlay.basic;
 
 import java.util.Collection;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.svw.overlay.basic.items.BasicCarplant;
+import com.svw.overlay.basic.dao.BasicCarplantDao;
 
-@RequestMapping("/carplant")
+@RequestMapping("/services/carplant")
 @Controller
 public class CarplantController {
 	
+	private BasicCarplantDao basicCarplantDao;
+	
+	@Autowired
+	public void setBasicCarplantDao(BasicCarplantDao basicCarplantDao) {
+		this.basicCarplantDao = basicCarplantDao;
+	}
+
 	@RequestMapping(value="/carplant",method = RequestMethod.PUT)
 	@ResponseBody
 	/**
@@ -40,7 +49,9 @@ public class CarplantController {
 			@RequestParam(value="longtitude", required=false, defaultValue="0") long longtitude,
 			@RequestParam(value="latitude", required=false, defaultValue="0") long latitude,
 			@RequestParam(value="remarks", required=false) String remarks){
-		return 0;
+		
+		return basicCarplantDao.createBasicCarplant(code, name, address,
+				longtitude, latitude, remarks);
 	}
 	
 	@RequestMapping(value="/carplant/{id}",method = RequestMethod.POST)
@@ -65,13 +76,14 @@ public class CarplantController {
 	 * @return
 	 *       更新条数
 	 */
-	public long updateBasicCarplant(@PathVariable("id") String id,
+	public long updateBasicCarplant(@PathVariable("id") long id,
 			@RequestParam("code") String code,
 			@RequestParam("name") String name, @RequestParam("address") String address,
 			@RequestParam(value="longtitude", required=false, defaultValue="0") long longtitude,
 			@RequestParam(value="latitude", required=false, defaultValue="0") long latitude,
 			@RequestParam(value="remarks", required=false) String remarks){
-	  return 0;
+	  return basicCarplantDao.updateBasicCarplant(id, code, name, address,
+			  longtitude, latitude, remarks);
 		
 	}
 	
@@ -85,11 +97,8 @@ public class CarplantController {
 	 * @return
 	 *       工厂信息
 	 */
-    public BasicCarplant queryBasicCarplantById(@PathVariable("id") String id){
-		BasicCarplant bc = new BasicCarplant();
-		bc.setCode("afsas");
-		return bc;
-    	
+    public Map<String,Object> queryBasicCarplantById(@PathVariable("id") long id){
+		return basicCarplantDao.queryBasicCarplantById(id);
     }
 	
 	@RequestMapping(value="/carplant/{id}",method = RequestMethod.DELETE)
@@ -101,8 +110,8 @@ public class CarplantController {
 	 * @return
 	 *        删除条数
 	 */
-	public long deleteBasicCarplantById(@PathVariable("id") String id){
-		return 0;
+	public long deleteBasicCarplantById(@PathVariable("id") long id){
+		return basicCarplantDao.deleteBasicCarplantById(id);
 		
 	}
 	
@@ -118,11 +127,10 @@ public class CarplantController {
 	 * @return
 	 *      工厂信息列表
 	 */
-	public Collection<BasicCarplant> queryBasicCarplantList(
+	public Collection<Map<String,Object>> queryBasicCarplantList(
 			@RequestParam("code") String code,
 			@RequestParam("name") String name){
-		return null;
-		
+		return basicCarplantDao.queryBasicCarplantList(code, name);
 	}
 	
 

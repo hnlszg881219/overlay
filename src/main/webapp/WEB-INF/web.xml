@@ -6,7 +6,7 @@
 	<!-- Spring应用上下文,理解层次化的ApplicationContext -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/configs/spring/applicationContext*.xml</param-value>
+		<param-value>classpath*:/configs/spring/applicationContext*.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -19,6 +19,16 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>httpPutFormFilter</filter-name>
+		<servlet-name>dispatcherServlet</servlet-name>
+	</filter-mapping>
+	
+	<!-- To support HTTP DELETE requests  -->
+	<filter>
+	  <filter-name>httpMethodFilter</filter-name>
+	  <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+	<filter-mapping>
+		<filter-name>httpMethodFilter</filter-name>
 		<servlet-name>dispatcherServlet</servlet-name>
 	</filter-mapping>
 
@@ -36,7 +46,7 @@
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<!-- 拦截请求 -->
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/services/*</url-pattern>
 	</servlet-mapping>
 
 	<filter>
