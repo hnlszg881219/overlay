@@ -82,6 +82,36 @@ public class BasicCarplant {
 	public void setRemakes(String remakes) {
 		this.remakes = remakes;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==null){
+			return false;
+		}
+		
+		if(!(obj instanceof BasicCarplant)){
+			return false;
+		}
+		
+		if(!((BasicCarplant)obj).getCode().equals(this.getCode())){
+			return false;
+		}
+		
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "代码:"+this.getCode()+" 名称："+this.getName()
+				+" 地址:"+this.getAddress()+" 经度:"+this.getLongtitude()+
+				" 纬度:"+this.getLatitude();
+	}
+	
 	
 
 }

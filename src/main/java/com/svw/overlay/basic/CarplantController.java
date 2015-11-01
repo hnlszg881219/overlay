@@ -24,7 +24,7 @@ public class CarplantController {
 		this.basicCarplantDao = basicCarplantDao;
 	}
 
-	@RequestMapping(value="/carplant",method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseBody
 	/**
 	 * 创建工厂基本信息
@@ -54,7 +54,7 @@ public class CarplantController {
 				longtitude, latitude, remarks);
 	}
 	
-	@RequestMapping(value="/carplant/{id}",method = RequestMethod.POST)
+	@RequestMapping(value="/{id}",method = RequestMethod.POST)
 	@ResponseBody
 	/**
 	 * 更新工厂基本信息
@@ -87,7 +87,7 @@ public class CarplantController {
 		
 	}
 	
-	@RequestMapping(value="/carplant/{id}",method = RequestMethod.GET)
+	@RequestMapping(value="/{id}",method = RequestMethod.GET)
 	@ResponseBody
 	/**
 	 * 通过id查询工厂信息
@@ -101,7 +101,7 @@ public class CarplantController {
 		return basicCarplantDao.queryBasicCarplantById(id);
     }
 	
-	@RequestMapping(value="/carplant/{id}",method = RequestMethod.DELETE)
+	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
 	@ResponseBody
 	/**
 	 * 通过id删除工厂信息

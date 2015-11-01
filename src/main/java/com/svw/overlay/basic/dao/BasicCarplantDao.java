@@ -3,8 +3,6 @@ package com.svw.overlay.basic.dao;
 import java.util.Collection;
 import java.util.Map;
 
-import com.svw.overlay.basic.items.BasicCarplant;
-
 public interface BasicCarplantDao {
 	
     long createBasicCarplant(String code,
