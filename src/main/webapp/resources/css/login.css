@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+body{TEXT-ALIGN: center;}
+#content{ MARGIN-RIGHT: auto;
+MARGIN-LEFT: auto;
+margin-top:200px;
+height:400px;
+width:400px;
+}
