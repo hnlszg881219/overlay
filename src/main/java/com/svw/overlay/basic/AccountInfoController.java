@@ -20,8 +20,8 @@ import com.svw.overlay.basic.dao.AccountInfoDao;
 import com.svw.overlay.basic.enums.AccountStatusEnum;
 import com.svw.overlay.basic.items.AccountInfo;
 
-@RequestMapping("/services/account")
 @Controller
+@RequestMapping("/services/account")
 public class AccountInfoController {
 	
 	private AccountInfoDao accountInfoDao;
@@ -31,8 +31,7 @@ public class AccountInfoController {
 		this.accountInfoDao = accountInfoDao;
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseBody
+	
 	/**
 	 * 创建用户信息
 	 * 
@@ -47,7 +46,8 @@ public class AccountInfoController {
 	 * @return
 	 *       返回成功条数
 	 */
-	public Map<String,Object> createAccountInfo(@RequestParam("username") String username,
+	@RequestMapping(method = RequestMethod.PUT,produces="application/json")
+	public@ResponseBody Map<String,Object> createAccountInfo(@RequestParam("username") String username,
 		@RequestParam("password") String password,
 		@RequestParam(value="status", defaultValue="-1") AccountStatusEnum status,
 		@RequestParam(value="remarks",required=false,defaultValue="") String remarks){
@@ -71,8 +71,7 @@ public class AccountInfoController {
 		return map;
 	}
 	
-	@RequestMapping(value="/updatePwd",method = RequestMethod.POST)
-	@ResponseBody
+	
 	/**
 	 * 更新密码
 	 * 
@@ -85,7 +84,8 @@ public class AccountInfoController {
 	 * @return
 	 *       是否更新成功
 	 */
-	public Map<String,Object> updatePassword(@RequestParam("oldPassword") String oldPassword,
+	@RequestMapping(value="/updatePwd",method = RequestMethod.POST,produces="application/json")
+	public @ResponseBody Map<String,Object> updatePassword(@RequestParam("oldPassword") String oldPassword,
 			@RequestParam("newPassword") String newPassword,HttpSession session){
 		AccountInfo accountInfo = (AccountInfo) session.getAttribute("accountInfo");
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -113,8 +113,7 @@ public class AccountInfoController {
 		return map;
 	}
 	
-	@RequestMapping(value="/updateStatus/{id}",method = RequestMethod.POST)
-	@ResponseBody
+	
 	/**
 	 * 更新状态
 	 * 
@@ -125,7 +124,8 @@ public class AccountInfoController {
 	 * @return
 	 *     是否更新成功
 	 */
-	public Map<String,Object> updateStatus(@PathVariable("id") Long id,
+	@RequestMapping(value="/updateStatus/{id}",method = RequestMethod.POST,produces="application/json")
+	public @ResponseBody Map<String,Object> updateStatus(@PathVariable("id") Long id,
 			@RequestParam("status") AccountStatusEnum status){
 		long c = accountInfoDao.updateStatus(id, status.getLongValue(), new Date());
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -141,8 +141,7 @@ public class AccountInfoController {
 		return map;
 	}
 	
-	@RequestMapping(value="/updateRemarks/{id}",method = RequestMethod.POST)
-	@ResponseBody
+	
 	/**
 	 * 更新备注
 	 * 
@@ -153,7 +152,8 @@ public class AccountInfoController {
 	 * @return
 	 *       是否更新成功
 	 */
-	public Map<String,Object> updateRemarks(@PathVariable("id") Long id,
+	@RequestMapping(value="/updateRemarks/{id}",method = RequestMethod.POST,produces="application/json")
+	public @ResponseBody Map<String,Object> updateRemarks(@PathVariable("id") Long id,
 			@RequestParam("remarks") String remarks){
 		long c = accountInfoDao.updateRemarks(id, remarks, new Date());
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -169,8 +169,7 @@ public class AccountInfoController {
 		return map;
 	}
 	
-	@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	@ResponseBody
+	
 	/**
 	 * 通过id查询账户信息
 	 * 
@@ -179,15 +178,15 @@ public class AccountInfoController {
 	 * @return
 	 *       账户信息 
 	 */
-	public Map<String,Object> queryAccountInfoById(@PathVariable("id") Long id){
+	@RequestMapping(value="/{id}",method = RequestMethod.GET,produces="application/json")
+	public @ResponseBody Map<String,Object> queryAccountInfoById(@PathVariable("id") Long id){
 		Map<String,Object> accountInfo = accountInfoDao.queryAccountInfoById(id);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("accountInfo", accountInfo);
 		return map;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
+	
 	/**
 	 * 查询用户信息
 	 * 
@@ -198,7 +197,8 @@ public class AccountInfoController {
 	 * @return
 	 *         用户信息
 	 */
-	public Map<String,Object> queryAccountInfoList(@RequestParam("username") String username,
+	@RequestMapping(method = RequestMethod.GET,produces="application/json")
+	public @ResponseBody Map<String,Object> queryAccountInfoList(@RequestParam("username") String username,
 			@RequestParam("status") AccountStatusEnum status){
 		List<Map<String,Object>> list = accountInfoDao.queryAccountInfoList(username, 
 				status!=null?status.getLongValue():null);

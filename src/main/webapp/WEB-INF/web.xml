@@ -6,13 +6,10 @@
 	<!-- Spring应用上下文,理解层次化的ApplicationContext -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:/configs/spring/applicationContext*.xml</param-value>
+		<param-value>classpath:/configs/spring/applicationContext*.xml</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<!-- To support HTTP PUT and PATCH requests -->
+	
+    <!-- To support HTTP PUT and PATCH requests -->
 	<filter>
 		<filter-name>httpPutFormFilter</filter-name>
 		<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
@@ -31,7 +28,7 @@
 		<filter-name>httpMethodFilter</filter-name>
 		<servlet-name>dispatcherServlet</servlet-name>
 	</filter-mapping>
-
+	
 	<!-- DispatcherServlet Spring MVC的核心 -->
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
@@ -46,9 +43,13 @@
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<!-- 拦截请求 -->
-		<url-pattern>/services/*</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

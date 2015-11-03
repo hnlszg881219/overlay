@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <title>test</title>
 <link rel="stylesheet" type="text/css" href=""><link>
-<script type="text/javascript" src="/resources/js/jquery/jquery.js" ></script>
+<script type="text/javascript" src="resources/js/jquery/jquery.js" ></script>
+<script type="text/javascript" src="resources/js/test.js"></script>
 <style type="text/css">
 #title{
 margin-top:20px;
 width:400px;
-height:50px;
+height:30px;
 margin-bottom:20px;
 }
 .center{
@@ -35,7 +36,11 @@ height:100%;
 .button{
 text-align:center;
 }
-
+#result{
+width:100%;
+height:100%;
+text-align:center;
+}
 
 </style>
 <script type="text/javascript">
@@ -48,16 +53,17 @@ text-align:center;
 </div>
 
 <div id="center" class="center">
- <input id="content" />
+ <textarea id="content" cols="50" rows="5"></textarea>
 </div>
 <div class="button center">
 <button type="button" id="get"><b>get</b></button>
 <button type="button" id="post"><b>post</b></button>
 <button type="button" id="put"><b>put</b></button>
-<button type="button" id="deletes"><b>delete</b></button>
+<button type="button" id="delete"><b>delete</b></button>
 </div>
-<a href="http://www.baidu.com" style="text-decoration:none" target="_blank">百度</a>
+<!-- <a href="http://www.baidu.com" style="text-decoration:none" target="_blank">百度</a> -->
 <div id="result">
+<pre></pre>
 </div>
 </body>
 </html>
